@@ -1,0 +1,33 @@
+{
+  "dns": {
+    "servers": [
+      { "tag": "dns_block", "address": "rcode://success" },
+      { "tag": "dns_direct", "address": [ "https://1.12.12.12/dns-query", "https://223.5.5.5/dns-query" ], "detour": "DIRECT" },
+      { "tag": "dns_proxy", "address": [ "https://8.8.8.8/dns-query", "https://1.1.1.1/dns-query" ] },
+      { "tag": "dns_fakeip", "address": "fakeip" }
+    ],
+    "rules": [
+      { "outbound": "any", "server": "dns_direct" },
+      { "clash_mode": "Direct", "query_type": [ "A", "AAAA" ], "server": "dns_direct" },
+      { "clash_mode": "Global", "query_type": [ "A", "AAAA" ], "server": "dns_proxy" },
+      { "geosite": [ "category-ads-all" ], "server": "dns_block" },
+      { "query_type": [ "A", "AAAA" ], "server": "dns_fakeip" }
+    ],
+    "final": "dns_direct",
+    "strategy": "prefer_ipv4",
+    "independent_cache": true,
+    "lazy_cache": true,
+    "reverse_mapping": true,
+    "mapping_override": true,
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18",
+      "exclude_rule": {
+        "domain": [ "time-ios.apple.com", "time1.cloud.tencent.com", "music.163.com", "musicapi.taihe.com", "music.taihe.com", "songsearch.kugou.com", "trackercdn.kugou.com", "api-jooxtt.sanook.com", "api.joox.com", "joox.com", "y.qq.com", "streamoc.music.tc.qq.com", "mobileoc.music.tc.qq.com", "isure.stream.qqmusic.qq.com", "dl.stream.qqmusic.qq.com", "aqqmusic.tc.qq.com", "amobile.music.tc.qq.com", "music.migu.cn", "localhost.ptlogin2.qq.com", "localhost.sec.qq.com", "xnotify.xboxlive.com", "proxy.golang.org", "heartbeat.belkin.com", "mesu.apple.com", "swscan.apple.com", "swquery.apple.com", "swdownload.apple.com", "swcdn.apple.com", "swdist.apple.com", "lens.l.google.com", "stun.l.google.com", "na.b.g-tun.com", "ff.dorado.sdo.com", "shark007.net", "weatherapi.market.xiaomi.com", "adguardteam.github.io", "adrules.top", "anti-ad.net", "local.adguard.org", "static.adtidy.org", "ps.res.netease.com" ],
+        "domain_suffix": [ "lan", "localdomain", "example", "invalid", "localhost", "test", "local", "home.arpa", "time.edu.cn", "ntp.org.cn", "pool.ntp.org", "music.163.com", "126.net", "kuwo.cn", "y.qq.com", "xiami.com", "music.migu.cn", "msftconnecttest.com", "msftncsi.com", "qq.com", "tencent.com", "steamcontent.com", "srv.nintendo.net", "n.n.srv.nintendo.net", "cdn.nintendo.net", "stun.playstation.net", "battlenet.com.cn", "wotgame.cn", "wggames.cn", "wowsgame.cn", "wargaming.net", "linksys.com", "linksyssmartwifi.com", "router.asus.com", "nflxvideo.net", "square-enix.com", "finalfantasyxiv.com", "ffxiv.com", "ff14.sdo.com", "mcdn.bilivideo.cn", "media.dssott.com", "cmbchina.com", "cmbimg.com", "sandai.net", "n0808.com", "3gppnetwork.org", "uu.163.com", "oray.com", "orayimg.com" ],
+        "domain_regex": [ "time.*.com", "time.*.gov", "time.*.edu.cn", "time.*.apple.com", "time1.*.com", "time2.*.com", "time3.*.com", "time4.*.com", "time5.*.com", "time6.*.com", "time7.*.com", "ntp.*.com", "ntp1.*.com", "ntp2.*.com", "ntp3.*.com", "ntp4.*.com", "ntp5.*.com", "ntp6.*.com", "ntp7.*.com", "xbox.*.*.microsoft.com", ".*.*.xboxlive.com", "xbox.*.microsoft.com", "stun.*.*", "stun.*.*.*", ".+.stun.*.*", ".+.stun.*.*.*", ".+.stun.*.*.*.*", ".+.stun.*.*.*.*.*" ]
+        }
+      }
+  }
+}
